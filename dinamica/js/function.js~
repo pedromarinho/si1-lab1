@@ -1,0 +1,54 @@
+				var themes = [];
+				var numId = 1;
+
+				
+
+				function validForm(id){
+					if(document.getElementById(id).value.length === 0){
+						//alert('Por favor, preencha o campo nome');
+						document.getElementById(id).focus();
+						return false
+					}return true
+				}
+
+				function addElement(id){
+					if(validForm('usr')){
+						var varForm = document.getElementById('usr').value;
+						if($.inArray(varForm, themes) === -1){
+							var el = "<li id='li"+numId+"' class='list-group-item'>"+varForm+"<button class='btn btn-lg btn-primary btn-block' style='float: right; width:60px; height:40px; margin-top:-10px; margin-right: -15px;' title='Mover para temas aprendidos' onclick='move(li"+numId+")'>Mover</button><button class='btn btn-lg btn-primary btn-block' style='float: right; width:60px; height:40px; margin-top: -10px;' onclick='removeElement(li"+numId+")' title='Excluir tema'>Excluir</button></li>";
+							$( id ).append(el);
+							themes.push(varForm);
+							numId++;
+						}else{
+							alert('O tema já foi inserido');
+							document.getElementById('usr').focus();
+						}
+					}
+				}
+
+				function removeElement(id){
+					var str = $( id ).text();
+					var res = str.replace("MoverExcluir", ""); 
+					arrayRemoveElement(res, themes);
+					$( id ).remove();
+					
+					
+				}
+
+				function move(id){
+					var str = $( id ).text();
+					var res = str.replace("MoverExcluir", ""); 
+					$( "#list2" ).append('<li class="list-group-item">'+res+'</li>');
+					$( id ).remove();
+				}
+
+
+				function randomInt(min,max){
+	    			return Math.floor(Math.random()*(max-min+1)+min);
+				}
+
+
+				function arrayRemoveElement(element, array){
+					index = array.indexOf(element);
+					array.splice(index, 1);
+				}
